@@ -100,7 +100,7 @@ def display_special_points():
 
     digit_x = images['special_points'].get_width() + images['colon'].get_width() + 20
     left_digit_x = images['special_points'].get_width() + images['colon'].get_width() + 15\
-                   + images['slash'].get_width() + (len(str(score)) * 20)
+                   + images['slash'].get_width() + (len(str(score)) * 18)
 
     for digit in str(special_points):
         game_window.blit(images[digit], (digit_x, 50))
