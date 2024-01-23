@@ -93,6 +93,24 @@ def display_score():
         game_window.blit(images[digit], (digit_x, 5))
         digit_x += 25
 
+
+def display_special_points():
+    game_window.blit(images['special_points'], (5, 50))
+    game_window.blit(images['colon'], (5 + images['special_points'].get_width(), 50))
+
+    digit_x = images['special_points'].get_width() + images['colon'].get_width() + 20
+    left_digit_x = images['special_points'].get_width() + images['colon'].get_width() + 15\
+                   + images['slash'].get_width() + (len(str(score)) * 20)
+
+    for digit in str(special_points):
+        game_window.blit(images[digit], (digit_x, 50))
+        digit_x += 25
+        left_digit_x += 25
+    for left_digit in str(special_points_left):
+        game_window.blit(images[left_digit], (left_digit_x, 50))
+        left_digit_x += 25
+        game_window.blit(images['slash'], (digit_x + 15, 50))
+
 class SanityBar():
     def __init__(self, x, y, w, h, max_sanity):
         self.x = x
@@ -117,7 +135,7 @@ class enemy(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.x += random.randint(0, 85) * 10
-        self.y += random.randint(0, 20) * 10
+        self.y += random.randint(0, 15) * 10
 
         # keep track of whether this enemy has been hit or not
         self.is_hit = False
@@ -133,7 +151,7 @@ class Shadow(enemy):
 
     def __init__(self, x):
 
-        super().__init__(x, game_height - 450)
+        super().__init__(x, game_height - 415)
         self.points = random.choice([1, 2])
         self.special_points = 1
         self.image = images['shadow']
@@ -257,6 +275,7 @@ while running:
                         current_enemies_count -= 1
                         sanity_decreasing -= 1
                         score += sprite.points
+                        special_points += sprite.special_points
                         break
 
                 if remaining_bullets != 0:
@@ -425,11 +444,12 @@ while running:
     crosshair_y -= images['crosshair'].get_height() / 2
     game_window.blit(images['crosshair'], (crosshair_x, crosshair_y))
 
+    # draw score
+    display_score()
+    display_special_points()
+
     #draw charged crosshair
     game_window.blit(crosshair_charged, (crosshair_x, crosshair_y))
-
-    #draw score
-    display_score()
 
     # draw low sanity effect
     game_window.blit(low_sanity_indication, (0, 0))
