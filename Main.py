@@ -437,4 +437,19 @@ while running:
 
     pygame.display.update()
 
+
+# while recharge:
+       # clock.tick(fps)
+
+    #    pygame.display.update()
+
+        #for event in pygame.event.get():
+         #   if event.type == QUIT:
+         #       recharge = False
+         #       running = False
+        #    if event.type == MOUSEBUTTONDOWN:
+       #         recharge = False
+        #        running = True
+         #       new_game()
+
 pygame.quit()
